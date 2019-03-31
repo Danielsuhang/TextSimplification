@@ -1,0 +1,10 @@
+textarea {
+    resize: none;
+}
+.text-area {
+    width: 95%;
+}
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+}

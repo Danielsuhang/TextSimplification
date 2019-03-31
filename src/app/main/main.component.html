@@ -1,0 +1,42 @@
+<div style="padding-top: 70px; padding-left: 3%">
+    <div class="flexcontainer">
+        <div>
+            <mat-card style="text-align: center; width: 50%; font-size: 40px; color: white"
+            [style.backgroundColor]="backgroundcolor">
+                <h2 >
+                    <b>Simplified</b>
+                </h2>
+            </mat-card>
+
+
+            <div class="form_container">
+                <mat-card style="width: 50%;">
+                    {{selectedText}}
+                </mat-card>
+                <!-- Text on the side-->
+                <mat-card style="position: fixed; margin-left: 60%; width: 450px; margin-top: -1%;">
+                    <button mat-raised-button color="primary" (click)="nextPTag(true); scroll('highlightText')"
+                        style="background: green">
+                        Next
+                    </button>
+                    <button mat-raised-button color="primary" (click)="reset()" style="background: red">
+                        Reset
+                    </button>
+                    <button mat-raised-button color="primary" (click)="skipChap()" style="background: darkyellow">
+                        Skip to Text
+                    </button>
+
+                    <button mat-raised-button color="primary" (click)="nextPTag(false); scroll('highlightText')"
+                        style="background: blue">
+                        Prev
+                    </button>
+                </mat-card>
+                <mat-card
+                    style="position: fixed; margin-left: 60%; width: 450px; height: 400px; margin-top: 6%; overflow-y: scroll;">
+                    <!-- <h3 style="text-align: center; margin-top: 7%"> Text Body </h3> -->
+
+                    <div #myTextArea [innerHTML]="textContents"></div>
+                </mat-card>
+            </div>
+        </div>
+    </div>

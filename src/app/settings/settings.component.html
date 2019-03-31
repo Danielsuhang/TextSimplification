@@ -1,0 +1,26 @@
+<div style="padding-top: 70px; padding-left: 3%">
+    <div class="flexcontainer" >
+      <div>
+        <h3>Original</h3>
+  
+  
+        <textarea rows="10" cols="100" class="text-area" (change)="textContents = $event.target.value" [value]="textContents"></textarea>
+        <button mat-raised-button color="warn" (click)="textContents=''">Clear Text</button>
+        <button mat-stroked-button color="warn" (click)="textContents='This is an example of simplified text!!'"> Text Example </button>
+      </div>
+      <div>
+        <h3>Simplified</h3>
+        <textarea rows="10" cols="100" class="text-area" (change)="textContents = $event.target.value" [value]="textContents" disabled></textarea>
+      </div>
+  
+  
+  
+    </div>
+    <br />
+    <div>Sample Input: {{sliderVal}}%</div>
+    <mat-slider [(ngModel)]="sliderVal"> </mat-slider>
+    <br />
+    <button mat-raised-button color="primary">Summarize Text</button>
+  
+  
+  </div>
