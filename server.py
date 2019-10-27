@@ -1,6 +1,8 @@
+from __future__ import print_function # In python 2.7
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_cors import CORS, cross_origin
+
 
 from flask_jsonpify import jsonify
 import sys
@@ -21,18 +23,18 @@ language = ""
 
 @app.route('/')
 def getBook():
-    return jsonify({'books': [{'title':'The Adventures of Sherlock Holmes','content': 'This is some sample text for what would go into the novel'},
-    {'title': 'Post Title', 'content': language} ] })
+    global langauge 
+    return jsonify({'books': [{'title': 'Content Title', 'content': language}]})
+
 
 @app.route('/post-text', methods=['POST'])
-def query_example():
+def postBook():
     global language
-    language = request.args.get('book-text') #if key doesn't exist, returns None
-
+    # language = request.args.get('book-text') #if key doesn't exist, returns None
+    language = request.data
     return '''<h1>The text value is: {}'''.format(language)
 
 
 if __name__ == "__main__":
     app.debug = True
-    
     app.run(port=5002)

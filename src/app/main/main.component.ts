@@ -24,19 +24,15 @@ export class MainComponent implements OnInit {
   selectedText: string = '';
   serverData: any;
   simplifiedText: string = '';
+  chapterText: any[]
   backgroundcolor = "#f18973"
 
-  constructor(private httpClient: HttpClient) {
-
-  }
+  constructor(private httpClient: HttpClient) {}
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log(event);
-
     if (event.keyCode === KEY_CODE.RIGHT_ARROW) {
       this.nextPTag(true);
-      console.log(this.paragraphNumber)
     }
 
     if (event.keyCode === KEY_CODE.LEFT_ARROW) {
@@ -54,27 +50,21 @@ export class MainComponent implements OnInit {
     this.paragraphNumber = 0;
     this.textContents = "No Text Detected"
     this.httpClient.get('http://127.0.0.1:5002/').subscribe(data => {
+      console.log("Data Recieved..");
+      console.log(data);
       this.serverData = data as JSON;
-      this.textContents = this.serverData.books[1].content
-
+      this.textContents = this.serverData.books[0].content
       //Removes weird / from dialogue texts
       this.textContents = this.textContents.replace(/\\/g, "");
-    })
+    });
   }
-  simplifyText(text: string) {
-    this.backgroundcolor = "green";
-    this.selectedText = "person@1 's christian name philip . Mrs. Joe Gargery married the blacksmith ." +
-      "person@1 never saw his mother or my mother ." + "person@1 gave his dark man ."
-      + "her mother was freckled and sickly . they were hurrying to get a living ."
 
-  }
   removeHighlightedText() {
     this.backgroundcolor = "#f18973"
     const arr = this.textContents.split(' #target class="highlightText"');
 
     //Trim last char of arr[0]
     this.textContents = arr.join('')
-    console.log(this.textContents)
   }
 
 
@@ -102,10 +92,6 @@ export class MainComponent implements OnInit {
               //Removes >
               this.selectedText = this.selectedText.replace(/>/g, "");
 
-              //Hardcoded simply text
-              if (this.paragraphNumber == 64) {
-                this.simplifyText("text");
-              }
               //Add highlight feature 
               this.textContents = this.textContents.substring(0, i + 2) + ' #target class="highlightText"'
                 + this.textContents.substring(i + 2, this.textContents.length);
@@ -172,10 +158,6 @@ export class MainComponent implements OnInit {
   skipChap() {
     this.findNextPTag();
     this.scroll('highlightText');
-    if (this.paragraphNumber == 62) {
-      this.simplifyText("text");
-    }
-
 
   }
 
