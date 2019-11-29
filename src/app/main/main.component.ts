@@ -106,7 +106,6 @@ export class MainComponent implements OnInit {
       }
       //No more <paragraph> found
     }
-    console.log("No more paragraph tags left")
     return "";
   }
 
