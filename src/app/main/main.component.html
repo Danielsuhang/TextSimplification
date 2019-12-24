@@ -4,7 +4,7 @@
             <mat-card style="text-align: center; width: 50%; font-size: 40px; color: white"
             [style.backgroundColor]="backgroundcolor">
                 <h2 >
-                    <b>Simplified</b>
+                    <b>Paragraph</b>
                 </h2>
             </mat-card>
             <div class="form_container">
@@ -13,18 +13,14 @@
                 </mat-card>
                 <!-- Text on the side-->
                 <mat-card style="position: fixed; margin-left: 60%; width: 450px; margin-top: -1%;">
-                    <button mat-raised-button color="primary" (click)="nextPTag(true); scroll('highlightText')"
+                    <button mat-raised-button color="primary" (click)="nextParagraph();"
                         style="background: green">
                         Next
                     </button>
                     <button mat-raised-button color="primary" (click)="reset()" style="background: red">
                         Reset
                     </button>
-                    <button mat-raised-button color="primary" (click)="skipChap()" style="background: darkyellow">
-                        Skip to Text
-                    </button>
-
-                    <button mat-raised-button color="primary" (click)="nextPTag(false); scroll('highlightText')"
+                    <button mat-raised-button color="primary" (click)="prevParagraph();"
                         style="background: blue">
                         Prev
                     </button>
