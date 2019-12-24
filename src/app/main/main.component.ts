@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
   textContents: string;
   content: string;
   paragraphNumber: number;
+  paragraphs: string[];
   public query: string;
   selectedText: string = '';
   serverData: any;
@@ -56,6 +57,13 @@ export class MainComponent implements OnInit {
       this.textContents = this.serverData.books[0].content
       //Removes weird / from dialogue texts
       this.textContents = this.textContents.replace(/\\/g, "");
+
+
+      this.paragraphs = this.textContents.split("<p>");
+      this.paragraphs.forEach(function(str, index) {
+          this[index] = str.replace("</p>", "");
+        }, this.paragraphs
+      );
     });
   }
 
@@ -67,10 +75,8 @@ export class MainComponent implements OnInit {
     this.textContents = arr.join('')
   }
 
-
-  //Looks for the next paragraph text
+  // Looks for the next paragraph text
   nextPTag(next: boolean) {
-    //Immediately remove highlighted text
     this.removeHighlightedText()
 
     this.paragraphNumber = next
@@ -86,27 +92,24 @@ export class MainComponent implements OnInit {
             if (this.textContents.substring(j, j + 4) == "</p>") {
               this.selectedText = this.textContents.substring(i + 3, i + (j - i));
 
-              /* Text Processing */
-              //Removes weird / from texts
-              this.selectedText = this.selectedText.replace(/\\/g, "");
-              //Removes >
-              this.selectedText = this.selectedText.replace(/>/g, "");
-
-              //Add highlight feature 
               this.textContents = this.textContents.substring(0, i + 2) + ' #target class="highlightText"'
                 + this.textContents.substring(i + 2, this.textContents.length);
               
-              return this.textContents.substring(i + 3, i + (j - i));
+              return;
             }
           }
-          //If gotten to this body, no closing tag found
           console.log("No closing tag found")
-          return "";
+          return; 
         }
       }
-      //No more <paragraph> found
     }
-    return "";
+  }
+
+  processText() {
+    //Removes weird / from texts
+    this.selectedText = this.selectedText.replace(/\\/g, "");
+    //Removes >
+    this.selectedText = this.selectedText.replace(/>/g, "");
   }
 
   reset() {
